@@ -1,25 +1,13 @@
-# Crypto Paper Trading Bot
+# Crypto Paper Trading Bot (automated demo)
 
-Aplicación Streamlit para simular operaciones LONG y SHORT en BTC, ETH y SOL con capital virtual de 800 €.
+- Assets: BTC, ETH, SOL
+- Virtual starting balance: €800
+- Strategy example: SMA 9/21 moving-average crossover
+- Simulated stop-loss: 2%; take-profit: 4%
+- Paper-only; no exchange connection and no real orders.
 
-## Ejecutar localmente
+## Deploy
+Upload `app.py`, `requirements.txt`, and `README.md` to the root of your GitHub repository. On Streamlit Community Cloud choose branch `main` and main file `app.py`.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate   # macOS/Linux
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-## Desplegar en Streamlit Community Cloud
-
-1. Crea un repositorio público en GitHub.
-2. Sube `app.py`, `requirements.txt` y `README.md` a la raíz del repositorio.
-3. En Streamlit Community Cloud, crea una app desde ese repositorio y selecciona `app.py`.
-
-## Datos y limitaciones
-
-- Consulta manualmente CoinGecko API pública para precios en EUR y variación de 24 horas.
-- La regla automática es didáctica: LONG si el cambio 24 h supera el umbral y SHORT si cae por debajo del umbral negativo.
-- No hay órdenes reales ni conexión a una cuenta de exchange.
-- El estado de sesión de Streamlit no es persistente y puede perderse al reiniciar.
+## Important limitations
+The five-minute refresh is session-bound and requires the app session to remain active; it is not a guaranteed 24/7 scheduler. Streamlit session state can reset. For robust continuous operation, use a separate worker and persistent database. CoinGecko's public OHLC endpoint may require a key or be rate-limited; the app displays errors and does not fabricate candle data.
